@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4410ECE9-7B88-4465-8773-D8433118BAC9}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Profes.P2P.FileShare</RootNamespace>
+    <AssemblyName>Profes.P2P.FileShare</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Profes.P2P.FileShare.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationFramework.Aero">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FileShareControl\BindingDependencyProperty.cs" />
+    <Compile Include="FileShareControl\CacheListViewItem.cs" />
+    <Compile Include="FileShareControl\CategorySettingWindow.xaml.cs">
+      <DependentUpon>CategorySettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileShareControl\CommentsWindow.xaml.cs">
+      <DependentUpon>CommentsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DeepCopyClone.cs" />
+    <Compile Include="FileShareControl\FileShareFilterControl.xaml.cs">
+      <DependentUpon>FileShareFilterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileShareControl\FileShareNodeControl.xaml.cs">
+      <DependentUpon>FileShareNodeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileShareControl\FileShareTabQueryControl.xaml.cs">
+      <DependentUpon>FileShareTabQueryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileShareControl\FileShareTreeQueryControl_2.xaml.cs">
+      <DependentUpon>FileShareTreeQueryControl_2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileShareControl\FileShareTriggerControl.xaml.cs">
+      <DependentUpon>FileShareTriggerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileShareControl\FileShareUploadControl.xaml.cs">
+      <DependentUpon>FileShareUploadControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileShareControl\NodeSettingWindow.xaml.cs">
+      <DependentUpon>NodeSettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileShareControl\RefineSearchTreeViewItemSettingWindow.xaml.cs">
+      <DependentUpon>RefineSearchTreeViewItemSettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileShareControl\SettingWindow.xaml.cs">
+      <DependentUpon>SettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileShareControl\TriggerSettingWindow.xaml.cs">
+      <DependentUpon>TriggerSettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileShareControl\FilterSettingWindow.xaml.cs">
+      <DependentUpon>FilterSettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceModel\Cache.cs" />
+    <Compile Include="ServiceModel\CacheController.cs" />
+    <Compile Include="FileShareControl\FileShareControl.xaml.cs">
+      <DependentUpon>FileShareControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileShareControl\FileShareControl_Event.cs" />
+    <Compile Include="FileShareControl\FileShareDownloadControl.xaml.cs">
+      <DependentUpon>FileShareDownloadControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileShareControl\FileShareTreeQueryControl.xaml.cs">
+      <DependentUpon>FileShareTreeQueryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServiceModel\Client\QueryController.cs" />
+    <Compile Include="ServiceModel\Client\StoreController.cs" />
+    <Compile Include="ServiceModel\Client\UploadDiffusionController.cs" />
+    <Compile Include="ServiceModel\Contract.cs" />
+    <Compile Include="ServiceModel\Client\DownloadController.cs" />
+    <Compile Include="ServiceModel\EndpointAddressEncryption.cs" />
+    <Compile Include="ServiceModel\FileShareService.cs" />
+    <Compile Include="ServiceModel\Key.cs" />
+    <Compile Include="ServiceModel\Node.cs" />
+    <Compile Include="ServiceModel\RouteTable.cs" />
+    <Compile Include="Properties\Settings.cs" />
+    <Compile Include="ServiceModel\Client\UploadController.cs" />
+    <Compile Include="ServiceModel\VerificationIPAddress.cs" />
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Profes.BinaryEditor\Profes.BinaryEditorBase.csproj">
+      <Project>{0ADA5203-3B47-4C22-8192-27160F989B0D}</Project>
+      <Name>Profes.BinaryEditorBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Profes.DialogBox\Profes.DialogBox.csproj">
+      <Project>{A8CD7A9C-6787-4B14-BF5D-29D10FD77032}</Project>
+      <Name>Profes.DialogBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Profes.Security.Cryptography\Profes.Security.Cryptography.csproj">
+      <Project>{7F0DCFFB-9CAA-4349-B447-D7CD7654F0BA}</Project>
+      <Name>Profes.Security.Cryptography</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Profes.SettingsBase\Profes.Configuration.csproj">
+      <Project>{6A99D74A-4F49-4CE4-9AF1-5EDD1C8B4673}</Project>
+      <Name>Profes.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Profes.UPnP\Profes.UPnP.csproj">
+      <Project>{E0FFC6F0-FF65-477A-944E-0E0038A720F2}</Project>
+      <Name>Profes.UPnP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="FileShareControl\CategorySettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareControl\CommentsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareControl\FileShareControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareControl\FileShareDownloadControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareControl\FileShareFilterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareControl\FileShareNodeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareControl\FileShareTreeQueryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareControl\FileShareTabQueryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareControl\FileShareTreeQueryControl_2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareControl\FileShareTriggerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareControl\FileShareUploadControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareControl\NodeSettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareControl\RefineSearchTreeViewItemSettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareControl\SettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareControl\TriggerSettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareControl\FilterSettingWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

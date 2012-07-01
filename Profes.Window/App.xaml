@@ -1,0 +1,15 @@
+﻿<Application x:Class="Profes.Window.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Profes.Window="clr-namespace:Profes.Window" 
+    StartupUri="MainWindow.xaml" >
+    <Application.Resources>
+        <ResourceDictionary>
+            <ObjectDataProvider x:Key="ResourcesInstance" 
+                                ObjectType="{x:Type Profes.Window:LanguageManager}"  
+                                MethodName="GetInstance"/>
+            <ObjectDataProvider x:Key="Resources" ObjectType="{x:Type Profes.Window:LanguageManager}"/>
+            <ObjectDataProvider x:Key="SkinResources" ObjectType="{x:Type Profes.Window:SkinManager}"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

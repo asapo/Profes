@@ -1,0 +1,258 @@
+﻿<Window x:Class="Profes.P2P.FileShare.FileShareControl.RefineSearchTreeViewItemSettingWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Profes.P2P.FileShare.FileShareControl"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:c="clr-namespace:Profes.P2P.FileShare.FileShareControl"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d"
+    Title="RefineSearchTreeViewItemSettingWindow" 
+    Height="402" 
+    Width="591" 
+    Loaded="Window_Loaded" Closed="Window_Closed" Topmost="True" WindowStartupLocation="CenterScreen">
+    
+    <Window.Resources>
+        <c:BoolToStringConverter x:Key="boolToStringConverter"/>
+        <c:RefineSearchStringToBoolConverter x:Key="refineSearchStringToBoolConverter" />
+            <DataTemplate x:Key="myItemTemplate_RefineSearchString_Include">
+            <TextBlock Text="{Binding Path=Include, Mode=OneWay, Converter={StaticResource boolToStringConverter}}" VerticalAlignment="Stretch" />
+        </DataTemplate>
+        <DataTemplate x:Key="myItemTemplate_RefineSearchString_Value">
+            <TextBlock Text="{Binding Path=Value, Mode=OneWay}" HorizontalAlignment="Left"/>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <Grid>
+        <Label Height="28" HorizontalAlignment="Left" Margin="12,8,0,0" x:Name="label1" VerticalAlignment="Top" Width="91" Content="ヘッダ名(_H):"/>
+        <TextBox Height="24" Margin="109,12,12,0" VerticalAlignment="Top" Text="{Binding Source={x:Static local:RefineSearchTreeViewItemSettingWindow.Item}, Path=RefineSearchName, Mode=TwoWay}" />
+        <TabControl Margin="12,46,12,35" x:Name="tabControl1" TabStripPlacement="Left">
+            <TabItem>
+                <TabItem.Header>
+                    <WrapPanel Width="136">
+                        <CheckBox x:Name="FileNameCheckBox" VerticalAlignment="Center" IsChecked="{Binding Source={x:Static local:RefineSearchTreeViewItemSettingWindow.Item}, Path=RefineSearchFileNameListEnabled, Mode=TwoWay}" />
+                        <TextBlock Text="ファイル名" Margin="3,0,0,0" />
+                    </WrapPanel>
+                </TabItem.Header>
+                <Grid x:Name="FileNameGrid" IsEnabled="{Binding ElementName=FileNameCheckBox, Path=IsChecked, Mode=OneWay}">
+                    <ListView Name="FileNameListView" Margin="0,0,0,109" ItemsSource="{Binding Source={x:Static local:RefineSearchTreeViewItemSettingWindow.Item}, Path=RefineSearchFileNameList, Mode=OneWay}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView xmlns:prop="clr-namespace:Profes.P2P.FileShare.Properties" >
+                                <GridViewColumn Header="含む" CellTemplate="{StaticResource myItemTemplate_RefineSearchString_Include}" 
+                                    Width="{Binding Source={x:Static prop:Settings.Default}, Path=RefineSearchTreeViewItemSettingWindow_GridViewColumn_Include_Width, Mode=TwoWay}" />
+                                <GridViewColumn Header="文字列" CellTemplate="{StaticResource myItemTemplate_RefineSearchString_Value}" 
+                                    Width="{Binding Source={x:Static prop:Settings.Default}, Path=RefineSearchTreeViewItemSettingWindow_GridViewColumn_Value_Width, Mode=TwoWay}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <TextBox Name="FileNameTextBox" Height="24" Margin="6,0,6,35" VerticalAlignment="Bottom" />
+                    <Button Height="23" HorizontalAlignment="Right" Margin="0,0,6,6" VerticalAlignment="Bottom" Width="75" Content="削除" Click="FileName_Delete_Button_Click"/>
+                    <Button Height="23" Margin="0,0,168,6" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75.453" Content="追加" Click="FileName_Add_Button_Click"/>
+                    <Button Height="23" HorizontalAlignment="Right" Margin="0,0,87,6" VerticalAlignment="Bottom" Width="75" Content="編集"  Click="FileName_Edit_Button_Click"/>
+                    <RadioButton Name="FileNameSearchRadioButton" Height="16" Margin="6,0,6,87" VerticalAlignment="Bottom" Content="この文字列を含むファイル名を検索する"/>
+                    <RadioButton Name="FileNameFilterRadioButton" Height="16" Margin="6,0,6,65" VerticalAlignment="Bottom" Content="この文字列を含むファイル名を除外する"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <WrapPanel Width="136">
+                        <CheckBox x:Name="RegexFileNameCheckBox" VerticalAlignment="Center" IsChecked="{Binding Source={x:Static local:RefineSearchTreeViewItemSettingWindow.Item}, Path=RefineSearchRegexFileNameListEnabled, Mode=TwoWay}" />
+                        <TextBlock Text="ファイル名(正規表現)" Margin="3,0,0,0" />
+                    </WrapPanel>
+                </TabItem.Header>
+                <Grid x:Name="RegexFileNameGrid" IsEnabled="{Binding ElementName=RegexFileNameCheckBox, Path=IsChecked, Mode=OneWay}" >
+                    <ListView Name="RegexFileNameListView" Margin="0,0,0,109" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding Source={x:Static local:RefineSearchTreeViewItemSettingWindow.Item}, Path=RefineSearchRegexFileNameList, Mode=OneWay}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView xmlns:prop="clr-namespace:Profes.P2P.FileShare.Properties"  >
+                                <GridViewColumn Header="一致" CellTemplate="{StaticResource myItemTemplate_RefineSearchString_Include}" 
+                                    Width="{Binding Source={x:Static prop:Settings.Default}, Path=RefineSearchTreeViewItemSettingWindow_GridViewColumn_Include_Width, Mode=TwoWay}" />
+                                <GridViewColumn Header="文字列" CellTemplate="{StaticResource myItemTemplate_RefineSearchString_Value}" 
+                                    Width="{Binding Source={x:Static prop:Settings.Default}, Path=RefineSearchTreeViewItemSettingWindow_GridViewColumn_Value_Width, Mode=TwoWay}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <TextBox Height="24" Margin="6,0,6,35" x:Name="RegexFileNameTextBox" VerticalAlignment="Bottom" />
+                    <Button Height="23" HorizontalAlignment="Right" Margin="0,0,6,6" VerticalAlignment="Bottom" Width="75" Content="削除" Click="RegexFileName_Delete_Button_Click"/>
+                    <Button Height="23" HorizontalAlignment="Right" Margin="0,0,168,6" VerticalAlignment="Bottom" Width="75.453" Content="追加" Click="RegexFileName_Add_Button_Click"/>
+                    <Button Height="23" HorizontalAlignment="Right" Margin="0,0,87,6" VerticalAlignment="Bottom" Width="75" Content="編集" Click="RegexFileName_Edit_Button_Click"/>
+                    <RadioButton Name="RegexFileNameMatchRadioButton" Height="16" Margin="6,0,6,87" VerticalAlignment="Bottom" Content="この正規表現に一致するファイル名を検索する"/>
+                    <RadioButton Name="RegexFileNameMismatchRadioButton" Height="16" Margin="6,0,6,65" VerticalAlignment="Bottom" Content="この正規表現に一致しないファイル名を検索する"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <WrapPanel Width="136">
+                        <CheckBox x:Name="CategoryCheckBox" VerticalAlignment="Center" IsChecked="{Binding Source={x:Static local:RefineSearchTreeViewItemSettingWindow.Item}, Path=RefineSearchCategoryListEnabled, Mode=TwoWay}" />
+                        <TextBlock Text="カテゴリ" Margin="3,0,0,0" />
+                    </WrapPanel>
+                </TabItem.Header>
+                <Grid x:Name="CategoryGrid" IsEnabled="{Binding ElementName=CategoryCheckBox, Path=IsChecked, Mode=OneWay}" >
+                    <ListView Name="CategoryListView" Margin="0,0,0,109" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding Source={x:Static local:RefineSearchTreeViewItemSettingWindow.Item}, Path=RefineSearchCategoryList, Mode=OneWay}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView xmlns:prop="clr-namespace:Profes.P2P.FileShare.Properties"  >
+                                <GridViewColumn Header="一致" CellTemplate="{StaticResource myItemTemplate_RefineSearchString_Include}" 
+                                    Width="{Binding Source={x:Static prop:Settings.Default}, Path=RefineSearchTreeViewItemSettingWindow_GridViewColumn_Include_Width, Mode=TwoWay}" />
+                                <GridViewColumn Header="文字列" CellTemplate="{StaticResource myItemTemplate_RefineSearchString_Value}" 
+                                    Width="{Binding Source={x:Static prop:Settings.Default}, Path=RefineSearchTreeViewItemSettingWindow_GridViewColumn_Value_Width, Mode=TwoWay}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <TextBox Height="24" Margin="6,0,6,35" x:Name="CategoryTextBox" VerticalAlignment="Bottom" />
+                    <Button Height="23" HorizontalAlignment="Right" Margin="0,0,6,6" VerticalAlignment="Bottom" Width="75" Content="削除" Click="Category_Delete_Button_Click"/>
+                    <Button Height="23" HorizontalAlignment="Right" Margin="0,0,168,6" VerticalAlignment="Bottom" Width="75.453" Content="追加" Click="Category_Add_Button_Click"/>
+                    <Button Height="23" HorizontalAlignment="Right" Margin="0,0,87,6" VerticalAlignment="Bottom" Width="75" Content="編集" Click="Category_Edit_Button_Click"/>
+                    <RadioButton Name="CategorySearchRadioButton" Height="16" Margin="6,0,6,87" VerticalAlignment="Bottom" Content="このカテゴリを検索する"/>
+                    <RadioButton Name="CategoryFilterRadioButton" Height="16" Margin="6,0,6,65" VerticalAlignment="Bottom" Content="このカテゴリを除外する"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <WrapPanel Width="136">
+                        <CheckBox x:Name="IdCheckBox" VerticalAlignment="Center" IsChecked="{Binding Source={x:Static local:RefineSearchTreeViewItemSettingWindow.Item}, Path=RefineSearchIdListEnabled, Mode=TwoWay}" />
+                        <TextBlock Text="ID" Margin="3,0,0,0" />
+                    </WrapPanel>
+                </TabItem.Header>
+                <Grid x:Name="IdGrid" IsEnabled="{Binding ElementName=IdCheckBox, Path=IsChecked, Mode=OneWay}" >
+                    <ListView Name="IdListView" Margin="0,0,0,109" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding Source={x:Static local:RefineSearchTreeViewItemSettingWindow.Item}, Path=RefineSearchIdList, Mode=OneWay}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView xmlns:prop="clr-namespace:Profes.P2P.FileShare.Properties"  >
+                                <GridViewColumn Header="一致" CellTemplate="{StaticResource myItemTemplate_RefineSearchString_Include}" 
+                                    Width="{Binding Source={x:Static prop:Settings.Default}, Path=RefineSearchTreeViewItemSettingWindow_GridViewColumn_Include_Width, Mode=TwoWay}" />
+                                <GridViewColumn Header="文字列" CellTemplate="{StaticResource myItemTemplate_RefineSearchString_Value}" 
+                                    Width="{Binding Source={x:Static prop:Settings.Default}, Path=RefineSearchTreeViewItemSettingWindow_GridViewColumn_Value_Width, Mode=TwoWay}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <TextBox Height="24" Margin="6,0,6,35" x:Name="IdTextBox" VerticalAlignment="Bottom" />
+                    <Button Height="23" HorizontalAlignment="Right" Margin="0,0,6,6" VerticalAlignment="Bottom" Width="75" Content="削除" Click="Id_Delete_Button_Click"/>
+                    <Button Height="23" HorizontalAlignment="Right" Margin="0,0,168,6" VerticalAlignment="Bottom" Width="75.453" Content="追加" Click="Id_Add_Button_Click"/>
+                    <Button Height="23" HorizontalAlignment="Right" Margin="0,0,87,6" VerticalAlignment="Bottom" Width="75" Content="編集" Click="Id_Edit_Button_Click"/>
+                    <RadioButton Name="IdSearchRadioButton" Height="16" Margin="6,0,6,87" VerticalAlignment="Bottom" Content="このIDを検索する"/>
+                    <RadioButton Name="IdFilterRadioButton" Height="16" Margin="6,0,6,65" VerticalAlignment="Bottom" Content="このIDを除外する"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <WrapPanel Width="136">
+                        <CheckBox x:Name="SizeCheckBox" VerticalAlignment="Center" IsChecked="{Binding Source={x:Static local:RefineSearchTreeViewItemSettingWindow.Item}, Path=RefineSearchSizeEnabled, Mode=TwoWay}" />
+                        <TextBlock Text="サイズ" Margin="3,0,0,0" />
+                    </WrapPanel>
+                </TabItem.Header>
+                <Grid x:Name="SizeGrid" IsEnabled="{Binding ElementName=SizeCheckBox, Path=IsChecked, Mode=OneWay}" >
+                    <TextBox Height="24" Margin="80,10,6,0" x:Name="SizeUpperLimitTextBox" VerticalAlignment="Top" />
+                    <Label Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Width="Auto" Content="サイズ上限"/>
+                    <TextBox Height="24" Margin="80,40,6,0" x:Name="SizeLowerLimitTextBox" VerticalAlignment="Top" />
+                    <Label Height="28" HorizontalAlignment="Left" Margin="6,36,0,0" VerticalAlignment="Top" Width="Auto" Content="サイズ下限"/>
+                </Grid>
+            </TabItem>
+        	<TabItem>
+                <TabItem.Header>
+                    <WrapPanel Width="136">
+                        <CheckBox x:Name="DownloadSuccessRateCheckBox" VerticalAlignment="Center" IsChecked="{Binding Source={x:Static local:RefineSearchTreeViewItemSettingWindow.Item}, Path=RefineSearchDownloadSuccessRateEnabled, Mode=TwoWay}" />
+                        <TextBlock Text="ダウンロード成功率" Margin="3,0,0,0" />
+                    </WrapPanel>
+                </TabItem.Header>
+                <Grid x:Name="DownloadSuccessRateGrid" IsEnabled="{Binding ElementName=DownloadSuccessRateCheckBox, Path=IsChecked, Mode=OneWay}" >
+                    <TextBox Height="24" Margin="152,10,6,0" x:Name="DownloadSuccessRateUpperLimitTextBox" VerticalAlignment="Top" />
+                    <Label Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Width="Auto" Content="ダウンロード成功率上限"/>
+                    <TextBox Height="24" Margin="152,40,6,0" x:Name="DownloadSuccessRateLowerLimitTextBox" VerticalAlignment="Top" />
+                    <Label Height="28" HorizontalAlignment="Left" Margin="6,36,0,0" VerticalAlignment="Top" Width="Auto" Content="ダウンロード成功率下限"/>
+                </Grid>
+        	</TabItem>
+        	<TabItem>
+                <TabItem.Header>
+                    <WrapPanel Width="136">
+                        <CheckBox x:Name="StatusCheckBox" VerticalAlignment="Center" IsChecked="{Binding Source={x:Static local:RefineSearchTreeViewItemSettingWindow.Item}, Path=RefineSearchStatusEnabled, Mode=TwoWay}" />
+                        <TextBlock Text="ステータス" Margin="3,0,0,0" />
+                    </WrapPanel>
+                </TabItem.Header>
+                <Grid x:Name="StatusGrid" IsEnabled="{Binding ElementName=StatusCheckBox, Path=IsChecked, Mode=OneWay}" >
+                    <TextBox Height="24" Margin="116,10,6,0" x:Name="StatusUpperLimitTextBox" VerticalAlignment="Top" />
+                    <Label Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Width="Auto" Content="キャッシュ率上限"/>
+                    <TextBox Height="24" Margin="116,40,6,0" x:Name="StatusLowerLimitTextBox" VerticalAlignment="Top" />
+                    <Label Height="28" HorizontalAlignment="Left" Margin="6,36,0,0" VerticalAlignment="Top" Width="Auto" Content="キャッシュ率下限"/>
+                </Grid>
+            </TabItem>
+        	<TabItem>
+                <TabItem.Header>
+                    <WrapPanel Width="136">
+                        <CheckBox x:Name="ReviewCheckBox" VerticalAlignment="Center" IsChecked="{Binding Source={x:Static local:RefineSearchTreeViewItemSettingWindow.Item}, Path=RefineSearchReviewEnabled, Mode=TwoWay}" />
+                        <TextBlock Text="評価" Margin="3,0,0,0" />
+                    </WrapPanel>
+                </TabItem.Header>
+                <Grid x:Name="ReviewGrid" IsEnabled="{Binding ElementName=ReviewCheckBox, Path=IsChecked, Mode=OneWay}" >
+                    <CheckBox x:Name="ReviewGoodCheckBox" HorizontalAlignment="Left" Margin="8,8,0,0" VerticalAlignment="Top" Width="163" Height="Auto" Content="良い (66~100%)"/>
+        			<CheckBox x:Name="ReviewBadCheckBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="163" Height="Auto" Content="悪い (0~33%)" Margin="8,52,0,0"/>
+        			<CheckBox  x:Name="ReviewMiddleCheckBox" VerticalAlignment="Top" Height="Auto" Content="中間 (33～66％)" HorizontalAlignment="Left" Margin="8,30,0,0" Width="163"/>
+        		</Grid>
+        	</TabItem>
+        	<TabItem>
+                <TabItem.Header>
+                    <WrapPanel Width="136">
+                        <CheckBox x:Name="CreationTimeCheckBox" VerticalAlignment="Center" IsChecked="{Binding Source={x:Static local:RefineSearchTreeViewItemSettingWindow.Item}, Path=RefineSearchCreationTimeEnabled, Mode=TwoWay}" />
+                        <TextBlock Text="作成日時" Margin="3,0,0,0" />
+                    </WrapPanel>
+                </TabItem.Header>
+                <Grid x:Name="CreationTimeGrid" IsEnabled="{Binding ElementName=CreationTimeCheckBox, Path=IsChecked, Mode=OneWay}" >
+                    <TextBox Height="24" Margin="92,10,6,0" x:Name="CreationTimeUpperLimitTextBox" VerticalAlignment="Top" />
+                    <Label Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Width="Auto" Content="作成日時上限"/>
+                    <TextBox Height="24" Margin="92,40,6,0" x:Name="CreationTimeLowerLimitTextBox" VerticalAlignment="Top" />
+                    <Label Height="28" HorizontalAlignment="Left" Margin="6,36,0,0" VerticalAlignment="Top" Width="Auto" Content="作成日時下限"/>
+                </Grid>
+            </TabItem>
+        	<TabItem>
+                <TabItem.Header>
+                    <WrapPanel Width="136">
+                        <CheckBox x:Name="HashCheckBox" VerticalAlignment="Center" IsChecked="{Binding Source={x:Static local:RefineSearchTreeViewItemSettingWindow.Item}, Path=RefineSearchHashListEnabled, Mode=TwoWay}" />
+                        <TextBlock Text="ハッシュ" Margin="3,0,0,0" />
+                    </WrapPanel>
+                </TabItem.Header>
+                <Grid x:Name="HashGrid" IsEnabled="{Binding ElementName=HashCheckBox, Path=IsChecked, Mode=OneWay}">
+                    <ListView Name="HashListView" Margin="0,0,0,109" ItemsSource="{Binding Source={x:Static local:RefineSearchTreeViewItemSettingWindow.Item}, Path=RefineSearchHashList, Mode=OneWay}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView xmlns:prop="clr-namespace:Profes.P2P.FileShare.Properties" >
+                                <GridViewColumn Header="含む" CellTemplate="{StaticResource myItemTemplate_RefineSearchString_Include}" 
+                                    Width="{Binding Source={x:Static prop:Settings.Default}, Path=RefineSearchTreeViewItemSettingWindow_GridViewColumn_Include_Width, Mode=TwoWay}" />
+                                <GridViewColumn Header="文字列" CellTemplate="{StaticResource myItemTemplate_RefineSearchString_Value}" 
+                                    Width="{Binding Source={x:Static prop:Settings.Default}, Path=RefineSearchTreeViewItemSettingWindow_GridViewColumn_Value_Width, Mode=TwoWay}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <TextBox Name="HashTextBox" Height="24" Margin="6,0,6,35" VerticalAlignment="Bottom" />
+                    <Button Height="23" HorizontalAlignment="Right" Margin="0,0,6,6" VerticalAlignment="Bottom" Width="75" Content="削除" Click="Hash_Delete_Button_Click"/>
+                    <Button Height="23" Margin="0,0,168,6" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75.453" Content="追加" Click="Hash_Add_Button_Click"/>
+                    <Button Height="23" HorizontalAlignment="Right" Margin="0,0,87,6" VerticalAlignment="Bottom" Width="75" Content="編集"  Click="Hash_Edit_Button_Click"/>
+                    <RadioButton Name="HashSearchRadioButton" Height="16" Margin="6,0,6,87" VerticalAlignment="Bottom" Content="このハッシュを検索する"/>
+                    <RadioButton Name="HashFilterRadioButton" Height="16" Margin="6,0,6,65" VerticalAlignment="Bottom" Content="このハッシュを除外する"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button Click="Cancel_Button_Click" HorizontalAlignment="Right" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="76" Height="23" Content="キャンセル"/>
+        <Button Click="Ok_Button_Click" HorizontalAlignment="Right" Margin="0,0,88,8" VerticalAlignment="Bottom" Width="76" Height="23" Content="Ok"/>
+    </Grid>
+</Window>
+    

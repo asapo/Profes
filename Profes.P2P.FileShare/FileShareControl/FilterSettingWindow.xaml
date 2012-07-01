@@ -1,0 +1,50 @@
+﻿<Window x:Class="Profes.P2P.FileShare.FileShareControl.FilterSettingWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="FilterSettingWindow" Height="499" Width="542" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" >
+    <Grid>
+        <GroupBox Header="ファイル名" Height="60" Margin="12,12,12,0" Name="groupBox1" VerticalAlignment="Top">
+            <Grid>
+                <TextBox Height="24" Margin="6,6,87,0" Name="FileNameTextBox" VerticalAlignment="Top" />
+                <Button HorizontalAlignment="Right" Margin="0,7,6,0" Name="ClearButton1" Width="75" Height="23" VerticalAlignment="Top" Click="ClearButton1_Click">クリア</Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="ID" Margin="12,144,12,0" Name="groupBox2" Height="60" VerticalAlignment="Top">
+            <Grid>
+                <TextBox Height="24" Margin="6,6,87,0" Name="IDTextBox" VerticalAlignment="Top" />
+                <Button Height="23" HorizontalAlignment="Right" Margin="0,7,6,0" Name="ClearButton3" VerticalAlignment="Top" Width="75" Click="ClearButton3_Click">クリア</Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="ハッシュ" Margin="12,210,12,0" Name="groupBox3" Height="60" VerticalAlignment="Top">
+            <Grid>
+                <TextBox Height="24" Margin="6,6,87,0" Name="HashTextBox" VerticalAlignment="Top" />
+                <Button Height="23" HorizontalAlignment="Right" Margin="0,7,6,0" Name="ClearButton4" VerticalAlignment="Top" Width="75" Click="ClearButton4_Click">クリア</Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="サイズ上限" Margin="12,276,273,0" Name="groupBox4" Height="60" VerticalAlignment="Top">
+            <Grid>
+                <TextBox Height="24" Margin="6,6,87,0" Name="SizeLimitTextBox" VerticalAlignment="Top" />
+                <Button Height="23" HorizontalAlignment="Right" Margin="0,7,6,0" Name="ClearButton5" VerticalAlignment="Top" Width="75" Click="ClearButton5_Click">クリア</Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="サイズ下限" Name="groupBox5" Height="60" VerticalAlignment="Top" Margin="273,276,12,0">
+            <Grid>
+                <TextBox Height="24" Margin="6,6,87,0" Name="SizeLowerTextBox" VerticalAlignment="Top" />
+                <Button Height="23" HorizontalAlignment="Right" Margin="0,7,6,0" Name="ClearButton6" VerticalAlignment="Top" Width="75" Click="ClearButton6_Click">クリア</Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="オプション" Margin="12,342,12,0" Name="groupBox6" Height="75" VerticalAlignment="Top">
+            <Grid>
+                <CheckBox Height="16" HorizontalAlignment="Left" Margin="6,6,0,0" Name="EffectCheckBox" VerticalAlignment="Top" Width="141">フィルタを有効にする</CheckBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="クエリ" Margin="12,78,12,0" Name="groupBox7" Height="60" VerticalAlignment="Top">
+            <Grid>
+                <TextBox Height="24" Margin="6,6,87,0" Name="QueryTextBox" VerticalAlignment="Top" />
+                <Button Height="23" HorizontalAlignment="Right" Margin="0,7,6,0" Name="ClearButton2" VerticalAlignment="Top" Width="75" Click="ClearButton2_Click">クリア</Button>
+            </Grid>
+        </GroupBox>
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="button1" VerticalAlignment="Bottom" Width="75" IsCancel="True" Click="button1_Click">キャンセル</Button>
+        <Button Height="23" Margin="0,0,93,12" Name="button2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="74" IsDefault="True" Click="button2_Click">Ok</Button>
+    </Grid>
+</Window>

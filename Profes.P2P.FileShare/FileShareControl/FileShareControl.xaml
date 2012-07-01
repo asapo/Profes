@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="Profes.P2P.FileShare.FileShareControl.FileShareControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:Profes.P2P.FileShare.FileShareControl"
+    xmlns:local="clr-namespace:Profes.P2P.FileShare.FileShareControl"
+    xmlns:prop="clr-namespace:Profes.P2P.FileShare.Properties" 
+    Height="469" Width="829" >
+    <UserControl.Resources>
+        <local:BytesToStringConverter x:Key="bytesToStringConverter"/>
+        <local:DateTimeToStringConverter x:Key="dateTimeToStringConverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="437*" />
+            <RowDefinition Height="24" />
+        </Grid.RowDefinitions>
+        <TabControl x:Name="tabControl">
+            <TabItem Name="NodeTabItem" Header="{Binding Path=Node, Source={StaticResource ResourcesInstance}}" IsSelected="True">
+                <local:FileShareNodeControl x:Name="nodeControl" Height="Auto" Width="Auto"/>
+            </TabItem>
+            <TabItem Name="QueryTabItem" Header="{Binding Path=Query, Source={StaticResource ResourcesInstance}}" >
+                <Grid Name="QueryGrid" />
+            </TabItem>
+            <TabItem Header="{Binding Path=Trigger, Source={StaticResource ResourcesInstance}}" >
+                <local:FileShareTriggerControl x:Name="TriggerControl" Height="Auto" Width="Auto" />
+            </TabItem>
+            <TabItem Header="{Binding Path=Filter, Source={StaticResource ResourcesInstance}}" >
+                <local:FileShareFilterControl x:Name="FilterControl" Height="Auto" Width="Auto" />
+            </TabItem>
+            <TabItem Header="{Binding Path=Download, Source={StaticResource ResourcesInstance}}">
+                <local:FileShareDownloadControl x:Name="downloadControl" Height="Auto" Width="Auto" />
+            </TabItem>
+            <TabItem Header="{Binding Path=Upload, Source={StaticResource ResourcesInstance}}">
+                <local:FileShareUploadControl x:Name="UploadControl" Height="Auto" Width="Auto" />
+            </TabItem>
+            <TabItem Header="{Binding Path=Cache, Source={StaticResource ResourcesInstance}}" Content="キャッシュ"/>
+            <TabItem Header="Log">
+                <Grid>
+                    <TextBox Name="LogTextBox" Margin="0,0,0,41"/>
+                    <Button Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="button1" VerticalAlignment="Bottom" Width="75" Click="button1_Click">ログクリア</Button>
+                    <CheckBox Name="LogCheckBox" IsChecked="{Binding Path=LogCheckBox_IsChecked, Source={StaticResource ResourcesInstance}}" Height="16" HorizontalAlignment="Right" Margin="0,0,93,12" VerticalAlignment="Bottom" Width="120">ログをストップ</CheckBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Height="24" Width="90" 
+                Click="NodeSettingButton_Click" Content="{Binding Path=NodeSetting, Source={StaticResource ResourcesInstance}}" x:Name="NodeSettingButton" Margin="0,0,102,0"/>
+        <StatusBar x:Name="statusBar" Grid.Row="1">
+            <StatusBarItem x:Name="MessageBoxStatusBarItem"/>
+            <StatusBarItem HorizontalContentAlignment="Right" x:Name="SpeedStatusBarItem"/>
+        </StatusBar>
+        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Height="24" Width="90" 
+        	Click="Button_Click" Content="{Binding Path=Setting, Source={StaticResource ResourcesInstance}}" Margin="0,0,8,0" x:Name="SettingButton"/>
+    </Grid>
+</UserControl>

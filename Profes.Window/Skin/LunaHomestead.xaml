@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:window="clr-namespace:Profes.Window;assembly=Profes.Window">
+
+    <Style TargetType="{x:Type window:MainWindow}">
+        <Setter Property="Background" Value="White" />
+    </Style>
+    
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/presentationframework.Luna;component/themes/luna.homestead.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

@@ -1,0 +1,63 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:Profes.P2P.FileShare.FileShareControl"
+    xmlns:prop="clr-namespace:Profes.P2P.FileShare.Properties" 
+    x:Class="Profes.P2P.FileShare.FileShareControl.FileShareNodeControl" 
+    Height="900" Width="1200" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+    <UserControl.Resources>
+        <c:NodeToStringConverter x:Key="nodeToStringConverter"/>
+        <c:DateTimeToStringConverter x:Key="dateTimeToStringConverter"/>
+
+        <DataTemplate x:Key="myItemTemplate_CommunicationType">
+            <TextBlock Text="{Binding Path=CommunicationType, Mode=OneWay}" VerticalAlignment="Stretch" Height="15" FontSize="12"/>
+        </DataTemplate>
+        <DataTemplate x:Key="myItemTemplate_Node">
+            <TextBlock Text="{Binding Path=Node, Converter={StaticResource nodeToStringConverter}, Mode=OneWay}" VerticalAlignment="Stretch" Height="15"  FontSize="12" />
+        </DataTemplate>
+        <DataTemplate x:Key="myItemTemplate_Description">
+            <TextBlock Text="{Binding Path=Description, Mode=OneWay}" VerticalAlignment="Stretch" Height="15"  FontSize="12" />
+        </DataTemplate>
+        <DataTemplate x:Key="myItemTemplate_ConnectionTime">
+            <TextBlock Text="{Binding Path=ConnectionTime, Mode=OneWay, StringFormat=HH:mm:ss}" VerticalAlignment="Stretch" Height="15"  FontSize="12" />
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+    	<Grid.RowDefinitions>
+    		<RowDefinition Height="26"/>
+    		<RowDefinition Height="*"/>
+    	</Grid.RowDefinitions>
+        <ListView x:Name="NodeListView" ItemsSource="{Binding Path=_nodeShowList, Source={x:Static prop:Settings.Default}}" ButtonBase.Click="GridViewColumnHeaderClickedHandler" Grid.Row="1">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView xmlns:prop="clr-namespace:Profes.P2P.FileShare.Properties" x:Name="NodeListViewGridView" >
+                    <GridViewColumn Header="通信タイプ" CellTemplate="{StaticResource myItemTemplate_CommunicationType}" 
+                                Width="{Binding Path=FileShareNode_GridViewColumn_CommunicationType_Width, Mode=TwoWay, Source={x:Static prop:Settings.Default}}" />
+                    <GridViewColumn Header="IP"  CellTemplate="{StaticResource myItemTemplate_Node}" 
+                                Width="{Binding Path=FileShareNode_GridViewColumn_Node_Width, Mode=TwoWay, Source={x:Static prop:Settings.Default}}" />
+                    <GridViewColumn Header="説明"  CellTemplate="{StaticResource myItemTemplate_Description}" 
+                                Width="{Binding Path=FileShareNode_GridViewColumn_Description_Width, Mode=TwoWay, Source={x:Static prop:Settings.Default}}"  />
+                    <GridViewColumn Header="接続時間"  CellTemplate="{StaticResource myItemTemplate_ConnectionTime}" 
+                                Width="{Binding Path=FileShareNode_GridViewColumn_ConnectionTime_Width, Mode=TwoWay, Source={x:Static prop:Settings.Default}}"  />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label HorizontalAlignment="Left" Width="70" Content="Query" VerticalAlignment="Top"/>
+        <TextBox x:Name="QueryTimerMaxCountTextBox" Margin="74,2,0,0" Text="{Binding Path=QueryTimerMaxCount, Mode=TwoWay, Source={x:Static prop:Settings.Default}}" TextChanged="QueryTimerMaxCountTextBox_TextChanged" TextWrapping="Wrap" Width="71" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+        <Label Content="Store" Width="70" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="149,0,0,0"/>
+        <TextBox x:Name="StoreTimerMaxCountTextBox" Text="{Binding Path=StoreTimerMaxCount, Mode=TwoWay, Source={x:Static prop:Settings.Default}}" TextChanged="StoreTimerMaxCountTextBox_TextChanged" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="223,2,0,0" Width="71" VerticalAlignment="Stretch"/>
+        <Label Content="Upload" Width="70" HorizontalAlignment="Left" Margin="298,0,0,0" d:LayoutOverrides="Height"/>
+        <TextBox x:Name="UploadTimerMaxCountTextBox" Text="{Binding Path=UploadTimerMaxCount, Mode=TwoWay, Source={x:Static prop:Settings.Default}}" TextChanged="UploadTimerMaxCountTextBox_TextChanged" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="372,2,0,0" Width="71" d:LayoutOverrides="Height"/>
+        <Label Content="Download" Margin="447,0,0,0" d:LayoutOverrides="Height" Width="70" HorizontalAlignment="Left"/>
+        <TextBox x:Name="DownloadTimerMaxCountTextBox" Text="{Binding Path=DownloadTimerMaxCount, Mode=TwoWay, Source={x:Static prop:Settings.Default}}" TextChanged="DownloadTimerMaxCountTextBox_TextChanged" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="521,2,0,0" Width="71" d:LayoutOverrides="Height"/>
+        <Label Content="Node数" Margin="0,0,75,0" d:LayoutOverrides="Height" HorizontalAlignment="Right" Width="70"/>
+        <TextBox x:Name="NodeCountTextBox" TextWrapping="Wrap" Margin="0,2,0,0" d:LayoutOverrides="Height" Width="71" HorizontalAlignment="Right" IsReadOnly="True"/>
+        <Label Content="Key数" Margin="0,0,224,0" HorizontalAlignment="Right" Width="70" d:LayoutOverrides="Height"/>
+        <TextBox x:Name="KeyCountTextBox" TextWrapping="Wrap" Margin="0,2,149,0" Width="71" HorizontalAlignment="Right" IsReadOnly="True" d:LayoutOverrides="Height"/>
+    </Grid>
+</UserControl>

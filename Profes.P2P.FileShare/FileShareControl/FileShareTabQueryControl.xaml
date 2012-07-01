@@ -1,0 +1,194 @@
+﻿<UserControl x:Class="Profes.P2P.FileShare.FileShareControl.FileShareTabQueryControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:Profes.P2P.FileShare.FileShareControl"
+    xmlns:prop="clr-namespace:Profes.P2P.FileShare.Properties" 
+    Height="Auto" Width="Auto">
+    <UserControl.Resources>
+        <c:BytesToStringConverter x:Key="bytesToStringConverter"/>
+        <c:DateTimeToStringConverter x:Key="dateTimeToStringConverter"/>
+        <c:Base64ToStringConverter x:Key="base64ToStringConverter"/>
+        <c:CategoryListToStringConverter x:Key="categoryListToStringConverter"/>
+        <c:Long_Size_ToStringConverter x:Key="int_Size_ToStringConverter"/>
+
+        <LinearGradientBrush x:Key="RedPressedBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="#f18181" Offset="0.0"/>
+                    <GradientStop Color="#ac1d1d" Offset="1.0"/>
+                </GradientStopCollection>
+            </GradientBrush.GradientStops>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="PressedBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="#BBB" Offset="0.0"/>
+                    <GradientStop Color="#EEE" Offset="0.1"/>
+                    <GradientStop Color="#EEE" Offset="0.9"/>
+                    <GradientStop Color="#FFF" Offset="1.0"/>
+                </GradientStopCollection>
+            </GradientBrush.GradientStops>
+        </LinearGradientBrush>
+
+        <SolidColorBrush x:Key="SolidBorderBrush" Color="#888" />
+        <LinearGradientBrush x:Key="DarkBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="#81a6f1" Offset="0.0"/>
+                    <GradientStop Color="#1d4dac" Offset="1.0"/>
+                </GradientStopCollection>
+            </GradientBrush.GradientStops>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="NormalBorderBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="#CCC" Offset="0.0"/>
+                    <GradientStop Color="#444" Offset="1.0"/>
+                </GradientStopCollection>
+            </GradientBrush.GradientStops>
+        </LinearGradientBrush>
+
+        <DataTemplate x:Key="myItemTemplate_CheckedFilename">
+            <TextBlock Text="{Binding Path=Name, Mode=OneWay}" Foreground="{Binding Path=Foreground, Mode=OneWay}" HorizontalAlignment="Left"/>
+        </DataTemplate>
+        <DataTemplate x:Key="myItemTemplate_CategoryList">
+            <TextBlock Text="{Binding Path=Category, Mode=OneWay, Converter={StaticResource categoryListToStringConverter}}" VerticalAlignment="Stretch" Height="15"  FontSize="12" />
+        </DataTemplate>
+        <DataTemplate x:Key="myItemTemplate_Sign">
+            <TextBlock Text="{Binding Path=Sign, Mode=OneWay}" VerticalAlignment="Stretch" Height="15"  FontSize="12" />
+        </DataTemplate>
+        <DataTemplate x:Key="myItemTemplate_ID">
+            <TextBlock Text="{Binding Path=ID, Mode=OneWay, Converter={StaticResource base64ToStringConverter}}" VerticalAlignment="Stretch" Height="15"  FontSize="12" />
+        </DataTemplate>
+        <DataTemplate x:Key="myItemTemplate_Size">
+            <TextBlock Text="{Binding Path=Size, Converter={StaticResource int_Size_ToStringConverter}, Mode=OneWay}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Height="15"  FontSize="12" />
+        </DataTemplate>
+        <DataTemplate x:Key="myItemTemplate_Status">
+            <Grid>
+                <ProgressBar Value="{Binding Path=Rate, Mode=OneWay}" Height="16" VerticalAlignment="Stretch" ClipToBounds="False" SnapsToDevicePixels="False" Focusable="False" IsHitTestVisible="True" Orientation="Horizontal" IsEnabled="True" IsIndeterminate="False" Grid.IsSharedSizeScope="False" Foreground="Brown" >
+                    <ProgressBar.Style>
+                        <Style x:Key="{x:Type ProgressBar}" TargetType="{x:Type ProgressBar}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                                        <Grid>
+                                            <Border 
+                                                Name="PART_Track" 
+                                                CornerRadius="2" 
+                                                Background="{StaticResource PressedBrush}"
+                                                BorderBrush="{StaticResource SolidBorderBrush}" />
+                                            <Border 
+                                                Name="PART_Indicator" 
+                                                CornerRadius="2" 
+                                                Background="{StaticResource DarkBrush}" 
+                                                BorderBrush="{StaticResource NormalBorderBrush}" 
+                                                HorizontalAlignment="Left" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ProgressBar.Style>
+                </ProgressBar>
+
+                <TextBlock Text="{Binding Path=RateString, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="myItemTemplate_Review">
+            <Grid MouseLeftButtonUp="Grid_MouseLeftButtonUp">
+                <ProgressBar Value="{Binding Path=ReviewRate, Mode=OneWay}" Height="16" VerticalAlignment="Stretch" ClipToBounds="False" SnapsToDevicePixels="False" Focusable="False" IsHitTestVisible="True" Orientation="Horizontal" IsEnabled="True" IsIndeterminate="False" Grid.IsSharedSizeScope="False" Foreground="Brown" >
+                    <ProgressBar.Style>
+                        <Style x:Key="{x:Type ProgressBar}" TargetType="{x:Type ProgressBar}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                                        <Grid>
+                                            <Border 
+                                                Name="PART_Track" 
+                                                CornerRadius="2" 
+                                                Background="{StaticResource RedPressedBrush}" />
+                                            <Border 
+                                                Name="PART_Indicator" 
+                                                CornerRadius="2" 
+                                                Background="{StaticResource DarkBrush}"
+                                                HorizontalAlignment="Left" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ProgressBar.Style>
+                </ProgressBar>
+
+                <TextBlock Text="{Binding Path=ReviewRateString, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="myItemTemplate_CreationTime">
+            <TextBlock Text="{Binding Path=CreationTime, Mode=OneWay, Converter={StaticResource dateTimeToStringConverter}}" VerticalAlignment="Stretch" Height="15"  FontSize="12" />
+        </DataTemplate>
+        <DataTemplate x:Key="myItemTemplate_Hash">
+            <TextBlock Text="{Binding Path=Hash, Mode=OneWay, Converter={StaticResource bytesToStringConverter}}" VerticalAlignment="Stretch" Height="15"  FontSize="12" />
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="82" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="132*" MinHeight="54" />
+        </Grid.RowDefinitions>
+        <WrapPanel Name="wrapPanel1" AllowDrop="True" Grid.Row="1">
+            <WrapPanel.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="削除(_D)" Click="削除_D_Click"/>
+                </ContextMenu>
+            </WrapPanel.ContextMenu>
+        </WrapPanel>
+        <ListView Name="queryListView" Grid.Row="2" PreviewMouseDoubleClick="queryListView_PreviewMouseDoubleClick" GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="ダウンロード(_D)" Click="ダウンロード_D_Click"/>
+                    <MenuItem Header="アップロード(_U)" Click="アップロード_U_Click"/>
+                    <MenuItem Header="コピー(_C)" Click="コピー_C_Click"/>
+                    <MenuItem Header="変換(_T)" Click="変換_T_Click"/>
+                    <MenuItem Header="評価(_R)" Click="評価_R_Click"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.View>
+                <GridView x:Name="queryListViewGridView" xmlns:prop="clr-namespace:Profes.P2P.FileShare.Properties" >
+                    <GridViewColumn Header="{Binding Path=FileName, Source={StaticResource ResourcesInstance}}" CellTemplate="{StaticResource myItemTemplate_CheckedFilename}" 
+                                Width="{Binding Source={x:Static prop:Settings.Default}, Path=Query_GridViewColumn_Filename_Width, Mode=TwoWay}" />
+                    <GridViewColumn Header="{Binding Path=CategoryList, Source={StaticResource ResourcesInstance}}" CellTemplate="{StaticResource myItemTemplate_CategoryList}" 
+                                Width="{Binding Source={x:Static prop:Settings.Default}, Path=Query_GridViewColumn_CategoryList_Width, Mode=TwoWay}" />
+                    <GridViewColumn Header="{Binding Path=Sign, Source={StaticResource ResourcesInstance}}" CellTemplate="{StaticResource myItemTemplate_Sign}" 
+                                Width="{Binding Source={x:Static prop:Settings.Default}, Path=Query_GridViewColumn_Sign_Width, Mode=TwoWay}" />
+                    <GridViewColumn Header="{Binding Path=ID, Source={StaticResource ResourcesInstance}}" CellTemplate="{StaticResource myItemTemplate_ID}" 
+                                Width="{Binding Source={x:Static prop:Settings.Default}, Path=Query_GridViewColumn_ID_Width, Mode=TwoWay}" />
+                    <GridViewColumn Header="{Binding Path=Size, Source={StaticResource ResourcesInstance}}"  CellTemplate="{StaticResource myItemTemplate_Size}" 
+                                Width="{Binding Source={x:Static prop:Settings.Default}, Path=Query_GridViewColumn_Size_Width, Mode=TwoWay}"  />
+                    <GridViewColumn Header="{Binding Path=Status, Source={StaticResource ResourcesInstance}}" CellTemplate="{StaticResource myItemTemplate_Status}" 
+                                Width="{Binding Source={x:Static prop:Settings.Default}, Path=Query_GridViewColumn_Status_Width, Mode=TwoWay}"  />
+                    <GridViewColumn Header="{Binding Path=Review, Source={StaticResource ResourcesInstance}}" CellTemplate="{StaticResource myItemTemplate_Review}" 
+                                Width="{Binding Source={x:Static prop:Settings.Default}, Path=Query_GridViewColumn_Review_Width, Mode=TwoWay}"  />
+                    <GridViewColumn Header="{Binding Path=CreationTime, Source={StaticResource ResourcesInstance}}" CellTemplate="{StaticResource myItemTemplate_CreationTime}" 
+                                Width="{Binding Source={x:Static prop:Settings.Default}, Path=Query_GridViewColumn_CreationTime_Width, Mode=TwoWay}"  />
+                    <GridViewColumn Header="{Binding Path=Hash, Source={StaticResource ResourcesInstance}}" CellTemplate="{StaticResource myItemTemplate_Hash}" 
+                                Width="{Binding Source={x:Static prop:Settings.Default}, Path=Query_GridViewColumn_Hash_Width, Mode=TwoWay}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBox Name="textBox1" KeyDown="textBox1_KeyDown" Margin="105,16,93,0" Height="24" VerticalAlignment="Top" />
+        <Label HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" Width="87.157" Height="28" VerticalAlignment="Top">クエリワード:</Label>
+        <Label Height="28" HorizontalAlignment="Left" Margin="70.177,0,0,8" Name="label2" VerticalAlignment="Bottom" Width="28.98">ID:</Label>
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,17,12,0" Name="button1" VerticalAlignment="Top" Width="75" Click="button1_Click">検索</Button>
+        <TextBox Height="24" Margin="105,0,0,12" Name="textBox2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="382" />
+        <Label Margin="493.333,46,0,0" Name="HitLabel" HorizontalAlignment="Left" Width="Auto" Height="28" VerticalAlignment="Top">Hit:</Label>
+    </Grid>
+</UserControl>
